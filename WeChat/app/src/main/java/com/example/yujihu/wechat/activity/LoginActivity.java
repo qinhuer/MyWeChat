@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_password;
     private Button bt_login;
     private Button bt_register;
-    public static String user_name;
+    private  String user_name;
     private ProgressDialog dialog;
     private int success;
     private String message;
@@ -155,6 +155,7 @@ public class LoginActivity extends AppCompatActivity {
             if (success == 1) {
                 user_name = username;
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("username",user_name);
                 startActivity(intent);
                 finish();
             }

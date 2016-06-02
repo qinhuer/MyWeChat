@@ -40,6 +40,7 @@ public class HttpClient {
     private static final int MAX_REQUESTS_PER_HOST = 10;
     private static final String TAG = HttpClient.class.getSimpleName();
     private static final String UTF_8 = "UTF-8";
+    private static final String HOST = "http:///myqq/";
     //private static final MediaType MEDIA_TYPE = MediaType.parse("text/plain; charset=utf-8");
     //public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static OkHttpClient client;
@@ -111,14 +112,14 @@ public class HttpClient {
             return;
         }
         //if (param != null && param.size() > 0) {
-            FormBody.Builder builder = new FormBody.Builder();
-            try {
-                for (Map.Entry<String, String> entry : param.entrySet()) {
-                    builder.add(entry.getKey(), URLEncoder.encode(entry.getValue(), UTF_8));
-                }
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+        FormBody.Builder builder = new FormBody.Builder();
+        try {
+            for (Map.Entry<String, String> entry : param.entrySet()) {
+                builder.add(entry.getKey(), URLEncoder.encode(entry.getValue(), UTF_8));
             }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         //}
 
         Request request = new Request.Builder().url(url).post(builder.build()).build();
@@ -156,7 +157,7 @@ public class HttpClient {
 
     //*************************get方式登录************************************//
 
-    private static final String GET_LOGIN = "http:///myqq/login2.php";
+    private static final String GET_LOGIN = "login2.php";
 
     public static void getLogin(String username, String password, HttpResponseHandler httpResponseHandler) {
 
@@ -170,7 +171,7 @@ public class HttpClient {
     //*************************************************************//
 
     //*************************get方式注册************************************//
-    private static final String GET_REGISTER = "http:///myqq/register2.php";
+    private static final String GET_REGISTER = HOST + "register2.php";
 
     public static void getRegister(String username, String password, HttpResponseHandler httpResponseHandler) {
 
@@ -185,7 +186,7 @@ public class HttpClient {
 
     //*************************post方式登录************************************//
 
-    private static final String POST_LOGIN = "http:///myqq/login.php";
+    private static final String POST_LOGIN = HOST + "login.php";
 
     public static void postLogin(String username, String password, HttpResponseHandler httpResponseHandler) {
 
@@ -199,7 +200,7 @@ public class HttpClient {
     //*************************************************************//
 
     //*************************post方式注册************************************//
-    private static final String POST_REGISTER = "http:///myqq/register.php";
+    private static final String POST_REGISTER = HOST + "register.php";
 
     public static void postRegister(String username, String password, HttpResponseHandler httpResponseHandler) {
 
@@ -209,6 +210,63 @@ public class HttpClient {
 
 //        String url = HTTP_DOMAIN + "?" + URLEncodedUtils.format(rq, UTF_8);
         post(POST_REGISTER, rq, httpResponseHandler);
+    }
+    //*************************************************************//
+    //*************************get方式接收消息************************************//
+
+    private static final String GET_MSG = HOST + "getmsg2.php";
+
+    public static void getMsg(String username, HttpResponseHandler httpResponseHandler) {
+
+        Map<String, String> rq = new HashMap();
+        rq.put("user_name", username);
+
+//        String url = HTTP_DOMAIN + "?" + URLEncodedUtils.format(rq, UTF_8);
+        get(GET_MSG, rq, httpResponseHandler);
+    }
+    //*************************************************************//
+
+    //*************************post方式接收消息************************************//
+
+    private static final String POST_MSG = HOST + "getmsg.php";
+
+    public static void postMsg(String username, HttpResponseHandler httpResponseHandler) {
+
+        Map<String, String> rq = new HashMap();
+        rq.put("user_name", username);
+
+//        String url = HTTP_DOMAIN + "?" + URLEncodedUtils.format(rq, UTF_8);
+        post(POST_MSG, rq, httpResponseHandler);
+    }
+    //*************************************************************//
+
+    //*************************get方式发送消息************************************//
+
+    private static final String GET_SMSG = HOST + "sendmsg2.php";
+
+    public static void getSMsg(String username, String content, HttpResponseHandler httpResponseHandler) {
+
+        Map<String, String> rq = new HashMap();
+        rq.put("user_name", username);
+        rq.put("chat_content", content);
+
+//        String url = HTTP_DOMAIN + "?" + URLEncodedUtils.format(rq, UTF_8);
+        get(GET_SMSG, rq, httpResponseHandler);
+    }
+    //*************************************************************//
+
+    //*************************post方式发送消息************************************//
+
+    private static final String POST_SMSG = HOST + "sendmsg.php";
+
+    public static void postSMsg(String username, String content, HttpResponseHandler httpResponseHandler) {
+
+        Map<String, String> rq = new HashMap();
+        rq.put("user_name", username);
+        rq.put("chat_content", content);
+
+//        String url = HTTP_DOMAIN + "?" + URLEncodedUtils.format(rq, UTF_8);
+        post(POST_SMSG, rq, httpResponseHandler);
     }
     //*************************************************************//
 }

@@ -22,4 +22,5 @@ public class Response {
     public void setSuccess(int success) {
         this.success = success;
     }
+
 }
